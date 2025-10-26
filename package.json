@@ -22,10 +22,10 @@
     "@tanstack/react-router-ssr-query": "^1.131.7",
     "@tanstack/react-start": "^1.131.7",
     "@tanstack/router-plugin": "^1.121.2",
-    "intlayer": "latest",
+    "intlayer": "7.0.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "react-intlayer": "latest",
+    "react-intlayer": "7.0.1",
     "tailwindcss": "^4.1.13",
     "vite-tsconfig-paths": "^5.1.4"
   },
@@ -43,7 +43,7 @@
     "typescript": "^5.7.2",
     "typescript-eslint": "^8.42.0",
     "vite": "^7.1.7",
-    "vite-intlayer": "latest",
+    "vite-intlayer": "7.0.1",
     "vitest": "^3.0.5",
     "web-vitals": "^4.2.4"
   }
