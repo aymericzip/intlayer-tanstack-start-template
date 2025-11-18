@@ -1,6 +1,9 @@
 import { type IntlayerConfig, Locales } from 'intlayer';
 
 const config: IntlayerConfig = {
+  build: {
+    importMode: 'dynamic',
+  },
   internationalization: {
     defaultLocale: Locales.ENGLISH,
     locales: [
