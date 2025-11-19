@@ -55,10 +55,10 @@ function App() {
 						</h1>
 					</div>
 					<p className="text-2xl md:text-3xl text-gray-300 mb-4 font-light">
-						{heroSubtitle.value}
+						{heroSubtitle}
 					</p>
 					<p className="text-lg text-gray-400 max-w-3xl mx-auto mb-8">
-						{heroDescription.value}
+						{heroDescription}
 					</p>
 					<div className="flex flex-col items-center gap-4">
 						<a
@@ -67,10 +67,10 @@ function App() {
 							rel="noopener noreferrer"
 							className="px-8 py-3 bg-cyan-500 hover:bg-cyan-600 text-white font-semibold rounded-lg transition-colors shadow-lg shadow-cyan-500/50"
 						>
-							{docButtonLabel.value}
+							{docButtonLabel}
 						</a>
 						<p className="text-gray-400 text-sm mt-2">
-							{guideTextPrefix.value}
+							{guideTextPrefix}
 							<code className="px-2 py-1 bg-slate-700 rounded text-cyan-400">
 								/src/routes/index.tsx
 							</code>

@@ -13,6 +13,9 @@ const config: IntlayerConfig = {
       // Your other locales
     ],
   },
+  editor: {
+    applicationURL: 'http://localhost:3000',
+  },
 };
 
 export default config;
