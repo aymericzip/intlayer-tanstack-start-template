@@ -5,8 +5,7 @@
   "scripts": {
     "dev": "vite dev --port 3000",
     "start": "node .output/server/index.mjs",
-    "build": "vite build && cp -r .intlayer .vercel/output/.intlayer",
-    "build:local": "vite build && cp -r .intlayer .output/.intlayer",
+    "build": "vite build",
     "serve": "vite preview",
     "test": "vitest run",
     "lint": "eslint",
