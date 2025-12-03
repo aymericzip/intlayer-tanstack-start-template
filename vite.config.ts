@@ -8,6 +8,7 @@ import viteTsConfigPaths from 'vite-tsconfig-paths';
 
 const config = defineConfig({
   plugins: [
+    intlayerProxy(), // To redirect the user to his own locale. Should be placed before nitro
     nitro(),
     viteTsConfigPaths({
       projects: ['./tsconfig.json'],
@@ -16,7 +17,6 @@ const config = defineConfig({
     tanstackStart(),
     viteReact(),
     intlayer(), // To make intlayer work
-    intlayerProxy(), // To redirect the user to his own locale
   ],
   ssr: {
     noExternal: [
