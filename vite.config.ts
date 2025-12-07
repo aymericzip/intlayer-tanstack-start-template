@@ -18,16 +18,6 @@ const config = defineConfig({
     viteReact(),
     intlayer(), // To make intlayer work
   ],
-  ssr: {
-    noExternal: [
-      'intlayer',
-      'react-intlayer',
-      '@intlayer/core',
-      '@intlayer/config',
-      '@intlayer/utils',
-      'vite-intlayer',
-    ],
-  },
 });
 
 export default config;

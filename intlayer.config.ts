@@ -4,6 +4,12 @@ const config: IntlayerConfig = {
   build: {
     importMode: 'dynamic',
   },
+  // dictionary: {
+  //   locale: Locales.ENGLISH,
+  // },
+  editor: {
+    applicationURL: 'http://localhost:3000',
+  },
   internationalization: {
     defaultLocale: Locales.ENGLISH,
     locales: [
@@ -12,9 +18,6 @@ const config: IntlayerConfig = {
       Locales.SPANISH,
       // Your other locales
     ],
-  },
-  editor: {
-    applicationURL: 'http://localhost:3000',
   },
 };
 
