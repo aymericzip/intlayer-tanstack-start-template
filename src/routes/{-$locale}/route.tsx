@@ -1,24 +1,23 @@
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import {
-  createFileRoute,
   HeadContent,
   Outlet,
   Scripts,
-} from '@tanstack/react-router';
-import { IntlayerProvider, useLocale } from 'react-intlayer';
-
-import Header from '@/components/Header';
-import { LocaleSwitcher } from '@/components/locale-switcher';
-
-const queryClient = new QueryClient();
+  createFileRoute,
+} from '@tanstack/react-router'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { IntlayerProvider, useLocale } from 'react-intlayer'
+import { useState } from 'react'
+import Header from '@/components/Header'
+import { LocaleSwitcher } from '@/components/locale-switcher'
 
 export const Route = createFileRoute('/{-$locale}')({
   component: RouteComponent,
-});
+})
 
 function RouteComponent() {
-  const { locale } = Route.useParams();
-  const { defaultLocale } = useLocale();
+  const { locale } = Route.useParams()
+  const { defaultLocale } = useLocale()
+  const [queryClient] = useState(() => new QueryClient())
 
   return (
     <html lang={locale ?? defaultLocale}>
@@ -38,5 +37,5 @@ function RouteComponent() {
         <Scripts />
       </body>
     </html>
-  );
+  )
 }

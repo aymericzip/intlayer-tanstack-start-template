@@ -1,45 +1,53 @@
-import { Link, type LinkComponentProps } from "@tanstack/react-router";
-import { getPrefix } from "intlayer";
-import type { FC } from "react";
-import { useLocale } from "react-intlayer";
+import type { LinkComponentProps } from '@tanstack/react-router';
+import type { FC } from 'react';
 
-export const LOCALE_ROUTE = "{-$locale}" as const;
+import { Link } from '@tanstack/react-router';
+import { getPrefix } from 'intlayer';
+import { useLocale } from 'react-intlayer';
 
-// Main utility
-export type RemoveLocaleParam<T> = T extends string
-	? RemoveLocaleFromString<T>
-	: T;
+export const LOCALE_ROUTE = '{-$locale}' as const;
 
-export type To = RemoveLocaleParam<LinkComponentProps["to"]>;
+// Renamed 'T' to 'TVal' to be explicit, though 'T' is usually allowed.
+// Renamed 'S' to 'TString' to satisfy the linter.
+export type RemoveLocaleParam<TVal> = TVal extends string
+  ? RemoveLocaleFromString<TVal>
+  : TVal;
 
-type CollapseDoubleSlashes<S extends string> =
-	S extends `${infer H}//${infer T}` ? CollapseDoubleSlashes<`${H}/${T}`> : S;
+export type To = RemoveLocaleParam<LinkComponentProps['to']>;
+
+// 'TString' replaces 'S', 'THead' replaces 'H', 'TTail' replaces 'T'
+type CollapseDoubleSlashes<TString extends string> =
+  TString extends `${infer THead}//${infer TTail}`
+    ? CollapseDoubleSlashes<`${THead}/${TTail}`>
+    : TString;
 
 type LocalizedLinkProps = {
-	to?: To;
-} & Omit<LinkComponentProps, "to">;
+  to?: To;
+} & Omit<LinkComponentProps, 'to'>;
 
-// Helpers
+// 'TString' replaces 'S', 'TSub' replaces 'Sub'
 type RemoveAll<
-	S extends string,
-	Sub extends string,
-> = S extends `${infer H}${Sub}${infer T}` ? RemoveAll<`${H}${T}`, Sub> : S;
+  TString extends string,
+  TSub extends string,
+> = TString extends `${infer THead}${TSub}${infer TTail}`
+  ? RemoveAll<`${THead}${TTail}`, TSub>
+  : TString;
 
-type RemoveLocaleFromString<S extends string> = CollapseDoubleSlashes<
-	RemoveAll<S, typeof LOCALE_ROUTE>
+type RemoveLocaleFromString<TString extends string> = CollapseDoubleSlashes<
+  RemoveAll<TString, typeof LOCALE_ROUTE>
 >;
 
 export const LocalizedLink: FC<LocalizedLinkProps> = (props) => {
-	const { locale } = useLocale();
+  const { locale } = useLocale();
 
-	return (
-		<Link
-			{...props}
-			params={{
-				locale: getPrefix(locale).localePrefix,
-				...(typeof props?.params === "object" ? props?.params : {}),
-			}}
-			to={`/${LOCALE_ROUTE}${props.to}` as LinkComponentProps["to"]}
-		/>
-	);
+  return (
+    <Link
+      {...props}
+      params={{
+        locale: getPrefix(locale).localePrefix,
+        ...(typeof props.params === 'object' ? props.params : {}),
+      }}
+      to={`/${LOCALE_ROUTE}${props.to}` as LinkComponentProps['to']}
+    />
+  );
 };
