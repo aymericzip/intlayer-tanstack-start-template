@@ -10,6 +10,8 @@ count.txt
 .output
 .vinxi
 todos.json
+
+# Intlayer
 .intlayer
 
 # lockfiles (removed to make intlayer test easier)
@@ -17,3 +19,5 @@ package-lock.json
 yarn.lock
 pnpm-lock.yaml
 bun.lock
+
+# 

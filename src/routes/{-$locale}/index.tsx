@@ -1,5 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';
+import { createServerFn } from '@tanstack/react-start';
+import { getIntlayer } from 'intlayer';
 import { useIntlayer, useLocale } from 'react-intlayer';
 
 import { getLocale } from '@/utils/getLocale';
@@ -15,9 +17,6 @@ export const Route = createFileRoute('/{-$locale}/')({
     };
   },
 });
-
-import { createServerFn } from '@tanstack/react-start';
-import { getIntlayer } from 'intlayer';
 
 // GET request (default)
 export const getData = createServerFn().handler(async () => {
