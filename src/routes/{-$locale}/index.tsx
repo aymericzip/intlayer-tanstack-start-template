@@ -18,6 +18,7 @@ export const Route = createFileRoute('/{-$locale}/')({
   },
 });
 
+
 // GET request (default)
 export const getData = createServerFn().handler(async () => {
   const locale = await getLocale();
@@ -31,13 +32,12 @@ function App() {
   const { locale } = useLocale();
   const { helloWorld } = useIntlayer('app');
 
-  const { data, error, isLoading } = useQuery({
+  const { data, isPending } = useQuery({
     queryFn: () => getData(),
     queryKey: ['app-message', locale],
   });
 
-  if (isLoading) return <div className="text-white">Loading...</div>;
-  if (error) return <div className="text-red-500">Error loading message</div>;
+  if (isPending) return <div className="text-white">Loading...</div>;
 
   return (
     <div className="min-h-screen bg-linear-to-b from-slate-900 via-slate-800 to-slate-900 flex flex-col justify-center text-white items-center gap-2">
