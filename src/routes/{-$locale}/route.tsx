@@ -6,7 +6,7 @@ import {
   redirect,
   Scripts,
 } from '@tanstack/react-router';
-import { configuration } from 'intlayer';
+import { configuration, getPrefix } from 'intlayer';
 import { IntlayerProvider } from 'react-intlayer';
 
 import Header from '@/components/Header';
@@ -18,18 +18,20 @@ import { NotFoundComponent } from './404';
 const queryClient = new QueryClient();
 
 const { defaultLocale, locales } = configuration.internationalization;
+const { mode } = configuration.routing;
 
 export const Route = createFileRoute('/{-$locale}')({
   beforeLoad: async ({ params }) => {
     // Get locale from route params (not from server headers, as beforeLoad runs on both client and server)
-    const locale = params.locale;
+    const localeParam = params.locale;
 
     // If no locale provided (optional param), it's valid (will use default)
-    if (!locale) return;
-    if (locale.startsWith('.')) return;
+    // In prefix-all mode, the locale is required to be a valid locale
+    const { localePrefix } = getPrefix(localeParam ?? defaultLocale, { mode });
+    if (localePrefix === localeParam && localeParam === undefined) return;
 
     // Check if the provided locale is valid
-    const isValidLocale = locales.some((localeEl) => localeEl === locale);
+    const isValidLocale = locales.some((localeEl) => localeEl === localeParam);
 
     if (!isValidLocale) {
       throw redirect({
