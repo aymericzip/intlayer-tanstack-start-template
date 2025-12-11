@@ -18,7 +18,6 @@ export const Route = createFileRoute('/{-$locale}/')({
   },
 });
 
-
 // GET request (default)
 export const getData = createServerFn().handler(async () => {
   const locale = await getLocale();

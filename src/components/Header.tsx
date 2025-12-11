@@ -1,10 +1,20 @@
-import { LocalizedLink } from '../components/localized-link';
+import { useState } from 'react';
+
+import { LocalizedLink } from './localized-link';
 
 export default function Header() {
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
     <>
-      <header className="p-4 flex items-center bg-gray-800 text-white shadow-lg">
-        <h1 className="ml-4 text-xl font-semibold">
+      <header className="flex items-center bg-gray-800 p-4 text-white shadow-lg">
+        <button
+          aria-label="Open menu"
+          className="rounded-lg p-2 transition-colors hover:bg-gray-700"
+          onClick={() => setIsOpen(true)}
+          type="button"
+        ></button>
+        <h1 className="ml-4 font-semibold text-xl">
           <LocalizedLink to="/">
             <img
               alt="TanStack Logo"
@@ -14,6 +24,50 @@ export default function Header() {
           </LocalizedLink>
         </h1>
       </header>
+
+      <aside
+        className={`fixed top-0 left-0 z-50 flex h-full w-80 transform flex-col bg-gray-900 text-white shadow-2xl transition-transform duration-300 ease-in-out ${
+          isOpen ? 'translate-x-0' : '-translate-x-full'
+        }`}
+      >
+        <div className="flex items-center justify-between border-gray-700 border-b p-4">
+          <h2 className="font-bold text-xl">Navigation</h2>
+          <button
+            aria-label="Close menu"
+            className="rounded-lg p-2 transition-colors hover:bg-gray-800"
+            onClick={() => setIsOpen(false)}
+            type="button"
+          >
+            <span className="sr-only">Close menu</span>
+          </button>
+        </div>
+
+        <nav className="flex-1 overflow-y-auto p-4">
+          <LocalizedLink
+            activeProps={{
+              className:
+                'flex items-center gap-3 p-3 rounded-lg bg-cyan-600 hover:bg-cyan-700 transition-colors mb-2',
+            }}
+            className="mb-2 flex items-center gap-3 rounded-lg p-3 transition-colors hover:bg-gray-800"
+            onClick={() => setIsOpen(false)}
+            to="/"
+          >
+            <span className="font-medium">Home</span>
+          </LocalizedLink>
+
+          <LocalizedLink
+            activeProps={{
+              className:
+                'flex items-center gap-3 p-3 rounded-lg bg-cyan-600 hover:bg-cyan-700 transition-colors mb-2',
+            }}
+            className="mb-2 flex items-center gap-3 rounded-lg p-3 transition-colors hover:bg-gray-800"
+            onClick={() => setIsOpen(false)}
+            to="/about"
+          >
+            <span className="font-medium">About</span>
+          </LocalizedLink>
+        </nav>
+      </aside>
     </>
   );
 }
