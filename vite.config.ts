@@ -8,13 +8,17 @@ import viteTsConfigPaths from 'vite-tsconfig-paths';
 
 const config = defineConfig({
   plugins: [
-    intlayerProxy(), // To redirect the user to his own locale. Should be placed before nitro
+    intlayerProxy({}, { ignore: (req) => req.url?.startsWith('/api') }), // To redirect the user to his own locale. Should be placed before nitro
     nitro(),
     viteTsConfigPaths({
       projects: ['./tsconfig.json'],
     }),
     tailwindcss(),
-    tanstackStart(),
+    tanstackStart({
+      router: {
+        routeFileIgnorePattern: '.content.(ts|tsx|js|jsx|json)$',
+      },
+    }),
     viteReact(),
     intlayer(), // To make intlayer work
   ],
