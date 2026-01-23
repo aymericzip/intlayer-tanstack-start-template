@@ -1,15 +1,7 @@
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { createFileRoute, Outlet, redirect } from '@tanstack/react-router';
 import { validatePrefix } from 'intlayer';
-import { IntlayerProvider, useLocale } from 'react-intlayer';
-
-import Header from '@/components/Header';
-import { LocaleSwitcher } from '@/components/locale-switcher';
-import { useI18nHTMLAttributes } from '@/hooks/useI18nHTMLAttributes';
 
 import { NotFoundComponent } from './404';
-
-const queryClient = new QueryClient();
 
 export const Route = createFileRoute('/{-$locale}')({
   beforeLoad: ({ params }) => {
@@ -30,35 +22,6 @@ export const Route = createFileRoute('/{-$locale}')({
       to: '/{-$locale}/404',
     });
   },
-  component: RouteComponent,
-  notFoundComponent: NotFoundLayout,
+  component: Outlet,
+  notFoundComponent: NotFoundComponent,
 });
-
-function NotFoundLayout() {
-  const { defaultLocale } = useLocale();
-  const { locale } = Route.useParams();
-
-  return (
-    <IntlayerProvider locale={locale ?? defaultLocale}>
-      <NotFoundComponent />
-      <LocaleSwitcher />
-    </IntlayerProvider>
-  );
-}
-
-function RouteComponent() {
-  const { defaultLocale } = useLocale();
-  const { locale } = Route.useParams();
-
-  useI18nHTMLAttributes();
-
-  return (
-    <IntlayerProvider locale={locale ?? defaultLocale}>
-      <QueryClientProvider client={queryClient}>
-        <Header />
-        <Outlet />
-        <LocaleSwitcher />
-      </QueryClientProvider>
-    </IntlayerProvider>
-  );
-}

@@ -16,7 +16,8 @@ const config = defineConfig({
     tailwindcss(),
     tanstackStart({
       router: {
-        routeFileIgnorePattern: '.content.(ts|tsx|js|jsx|json)$',
+        routeFileIgnorePattern:
+          '.content.(ts|tsx|js|mjs|cjs|jsx|json|jsonc|json5)$',
       },
     }),
     viteReact(),
