@@ -1,7 +1,7 @@
 import { QueryClientProvider, useQuery } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';
 import { createServerFn } from '@tanstack/react-start';
-import { getIntlayer } from 'intlayer';
+import { defaultLocale, getIntlayer, getLocalizedUrl, localeMap } from 'intlayer';
 import { useIntlayer, useLocale } from 'react-intlayer';
 
 import { queryClient } from '@/router';
@@ -15,10 +15,27 @@ export const Route = createFileRoute('/{-$locale}/')({
   ),
   head: ({ params }) => {
     const { locale } = params;
+    const path = '/';
     const { meta } = getIntlayer('app', locale);
 
     return {
-      meta: [meta],
+      links: [
+        { rel: 'canonical', href: getLocalizedUrl(path, locale) },
+        ...localeMap(({ locale: mapLocale }) => ({
+          rel: 'alternate',
+          hrefLang: mapLocale,
+          href: getLocalizedUrl(path, mapLocale),
+        })),
+        {
+          rel: 'alternate',
+          hrefLang: 'x-default',
+          href: getLocalizedUrl(path, defaultLocale),
+        },
+      ],
+      meta: [
+        { title: meta.title },
+        { name: 'description', content: meta.description },
+      ],
     };
   },
 });
