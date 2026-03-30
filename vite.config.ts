@@ -33,7 +33,7 @@ const config = defineConfig({
       },
       sitemap: {
         enabled: true,
-        host: process.env.VITE_APP_URL ?? 'http://localhost:3000',
+        host: 'http://localhost:3000',
       },
       prerender: {
         enabled: true,
