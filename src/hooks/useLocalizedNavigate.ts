@@ -27,6 +27,8 @@ export const useLocalizedNavigate = () => {
 
   const localizedNavigate: LocalizedNavigate = (args) => {
     if (typeof args === 'string') {
+      // `locale` is valid for all `/{-$locale}/*` routes; TypeScript can't verify
+      // this when `to` is constructed dynamically at runtime.
       return navigate({
         params: { locale: getPrefix(locale).localePrefix },
         to: `/${LOCALE_ROUTE}${args}`,

@@ -23,7 +23,8 @@ type CollapseDoubleSlashes<TString extends string> =
 
 type LocalizedLinkProps = {
   to?: To;
-} & Omit<LinkComponentProps, 'to'>;
+  params?: { locale?: string } & Record<string, unknown>;
+} & Omit<LinkComponentProps, 'to' | 'params'>;
 
 // 'TString' replaces 'S', 'TSub' replaces 'Sub'
 type RemoveAll<
@@ -43,6 +44,8 @@ export const LocalizedLink: FC<LocalizedLinkProps> = (props) => {
   return (
     <Link
       {...props}
+      // `locale` is a valid param for all `/{-$locale}/*` routes but TypeScript
+      // can't verify this when `to` is constructed dynamically at runtime.
       params={{
         locale: getPrefix(locale).localePrefix,
         ...(typeof props.params === 'object' ? props.params : {}),
