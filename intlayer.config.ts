@@ -1,7 +1,7 @@
 import { type IntlayerConfig, Locales } from 'intlayer';
 
 const config: IntlayerConfig = {
-  build: {
+  dictionary: {
     importMode: 'dynamic',
   },
   // dictionary: {

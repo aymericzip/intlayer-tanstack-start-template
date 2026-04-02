@@ -8,8 +8,8 @@ import { defaultLocale, getHTMLTextDir } from 'intlayer';
 import { type ReactNode } from 'react';
 import { IntlayerProvider } from 'react-intlayer';
 
-import Header from '@/components/Header';
-import { LocaleSwitcher } from '@/components/locale-switcher';
+import Header from '#/components/Header';
+import { LocaleSwitcher } from '#/components/locale-switcher';
 
 import appCss from '../styles.css?url';
 
@@ -51,8 +51,8 @@ function RootDocument({ children }: { children: ReactNode }) {
         <HeadContent />
       </head>
       <body>
-        <Header />
         <IntlayerProvider locale={locale}>
+          <Header />
           <LocaleSwitcher />
           {children}
         </IntlayerProvider>

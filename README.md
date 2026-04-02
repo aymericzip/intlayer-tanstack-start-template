@@ -95,7 +95,7 @@ Set up your root layout and locale-specific layouts:
 import { createFileRoute, Navigate, Outlet } from '@tanstack/react-router';
 import { IntlayerProvider, useLocale } from 'react-intlayer';
 
-import { useI18nHTMLAttributes } from '@/hooks/useI18nHTMLAttributes';
+import { useI18nHTMLAttributes } from '#/hooks/useI18nHTMLAttributes';
 
 export const Route = createFileRoute('/{-$locale}')({
   component: LayoutComponent,
@@ -221,8 +221,8 @@ Then we can create a `useLocalizedNavigate` hook for programmatic navigation:
 ```tsx fileName="src/hooks/useLocalizedNavigate.tsx"
 import { useLocale } from 'react-intlayer';
 import { useNavigate } from '@tanstack/react-router';
-import { LOCALE_ROUTE } from '@/components/localized-link';
-import type { FileRouteTypes } from '@/routeTree.gen';
+import { LOCALE_ROUTE } from '#/components/localized-link';
+import type { FileRouteTypes } from '#/routeTree.gen';
 
 export const useLocalizedNavigate = () => {
   const navigate = useNavigate();
@@ -273,9 +273,9 @@ import { createFileRoute } from '@tanstack/react-router';
 import { getIntlayer } from 'intlayer';
 import { useIntlayer } from 'react-intlayer';
 
-import LocaleSwitcher from '@/components/locale-switcher';
-import { LocalizedLink } from '@/components/localized-link';
-import { useLocalizedNavigate } from '@/hooks/useLocalizedNavigate';
+import LocaleSwitcher from '#/components/locale-switcher';
+import { LocalizedLink } from '#/components/localized-link';
+import { useLocalizedNavigate } from '#/hooks/useLocalizedNavigate';
 
 export const Route = createFileRoute('/{-$locale}/')({
   component: RouteComponent,
@@ -405,7 +405,7 @@ Then use it in your root component:
 import { createFileRoute, Navigate, Outlet } from '@tanstack/react-router';
 import { IntlayerProvider, useLocale } from 'react-intlayer';
 
-import { useI18nHTMLAttributes } from '@/hooks/useI18nHTMLAttributes'; // import the hook
+import { useI18nHTMLAttributes } from '#/hooks/useI18nHTMLAttributes'; // import the hook
 
 export const Route = createFileRoute('/{-$locale}')({
   component: LayoutComponent,
