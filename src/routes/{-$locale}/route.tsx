@@ -1,7 +1,7 @@
 import { createFileRoute, Outlet, redirect } from '@tanstack/react-router';
 import { validatePrefix } from 'intlayer';
 
-import { NotFoundComponent } from './404';
+import { NotFoundComponent } from '#/components/NotFoundComponent';
 
 export const Route = createFileRoute('/{-$locale}')({
   beforeLoad: ({ params }) => {
