@@ -19,7 +19,7 @@ const localizedPages = localeFlatMap(({ urlPrefix }) =>
 
 const config = defineConfig({
   plugins: [
-    intlayerProxy({}, { ignore: (req) => req.url?.startsWith('/api') }), // To redirect the user to his own locale. Should be placed before nitro
+    intlayerProxy({ ignore: (req: any) => req.url?.startsWith('/api') }), // To redirect the user to his own locale. Should be placed before nitro
     nitro(),
     tailwindcss(),
     tanstackStart({
