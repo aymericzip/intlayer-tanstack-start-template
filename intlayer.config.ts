@@ -10,6 +10,9 @@ const config: IntlayerConfig = {
   editor: {
     applicationURL: 'http://localhost:3000',
   },
+  routing: {
+    enableProxy: false,
+  },
   internationalization: {
     defaultLocale: Locales.ENGLISH,
     locales: [

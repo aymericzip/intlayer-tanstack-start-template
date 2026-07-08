@@ -4,7 +4,7 @@ import viteReact from '@vitejs/plugin-react';
 import { localeFlatMap } from 'intlayer';
 import { nitro } from 'nitro/vite';
 import { defineConfig } from 'vite';
-import { intlayer, intlayerProxy } from 'vite-intlayer';
+import { intlayer } from 'vite-intlayer';
 
 export const pathList = ['', '/about', '/404'];
 
@@ -19,7 +19,6 @@ const localizedPages = localeFlatMap(({ urlPrefix }) =>
 
 const config = defineConfig({
   plugins: [
-    intlayerProxy({ ignore: (req: any) => req.url?.startsWith('/api') }), // To redirect the user to his own locale. Should be placed before nitro
     nitro(),
     tailwindcss(),
     tanstackStart({
@@ -39,7 +38,11 @@ const config = defineConfig({
       pages: localizedPages,
     }),
     viteReact(),
-    intlayer(), // To make intlayer work
+    intlayer({
+      proxy: {
+        ignore: (req: any) => req.url?.startsWith('/api'),
+      },
+    }), // To make intlayer work
   ],
 });
 
