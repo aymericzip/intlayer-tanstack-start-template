@@ -9,7 +9,9 @@ import Header from '#/components/Header';
 import { LocaleSwitcher } from '#/components/locale-switcher';
 import appCss from '../styles.css?url';
 import type { ReactNode } from 'react';
-import { Route as LocaleRoute } from './{-$locale}/route';
+import { getRouteApi } from '@tanstack/react-router';
+
+const localeRoute = getRouteApi('/{-$locale}');
 
 export const Route = createRootRouteWithContext<{}>()({
   head: () => ({
@@ -38,7 +40,7 @@ export const Route = createRootRouteWithContext<{}>()({
 
 function RootDocument({ children }: { children: ReactNode }) {
   // Try to find locale in params of any active match
-  const params = LocaleRoute.useParams();
+  const params = localeRoute.useParams();
   const locale = params?.locale ?? defaultLocale;
 
   return (
