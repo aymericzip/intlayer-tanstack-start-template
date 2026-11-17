@@ -38,6 +38,28 @@ type RemoveLocaleFromString<TString extends string> = CollapseDoubleSlashes<
   RemoveAll<TString, typeof LOCALE_ROUTE>
 >;
 
+/**
+ * Prefixes absolute destinations with the optional locale segment.
+ * Relative destinations (`.`, `..`) keep their router meaning, and an
+ * omitted destination targets the locale root.
+ */
+export const localizeTo = (to: string | undefined): string => {
+  if (to === undefined) return `/${LOCALE_ROUTE}`;
+
+  return to.startsWith('/') ? `/${LOCALE_ROUTE}${to}` : to;
+};
+
+/**
+ * Whether a click opens the link elsewhere (new tab/window, download)
+ * instead of navigating the current tab.
+ */
+export const isModifiedClick = (event: {
+  altKey: boolean;
+  ctrlKey: boolean;
+  metaKey: boolean;
+  shiftKey: boolean;
+}): boolean => event.metaKey || event.altKey || event.ctrlKey || event.shiftKey;
+
 export const LocalizedLink: FC<LocalizedLinkProps> = (props) => {
   const { locale } = useLocale();
 
@@ -50,7 +72,7 @@ export const LocalizedLink: FC<LocalizedLinkProps> = (props) => {
         locale: getPrefix(locale).localePrefix,
         ...(typeof props.params === 'object' ? props.params : {}),
       }}
-      to={`/${LOCALE_ROUTE}${props.to}` as LinkComponentProps['to']}
+      to={localizeTo(props.to) as LinkComponentProps['to']}
     />
   );
 };

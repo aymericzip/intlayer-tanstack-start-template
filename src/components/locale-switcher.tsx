@@ -9,7 +9,7 @@ import {
 } from 'intlayer';
 import { setLocaleInStorage, useIntlayer, useLocale } from 'react-intlayer';
 
-import { LocalizedLink, type To } from './localized-link';
+import { isModifiedClick, LocalizedLink, type To } from './localized-link';
 
 export const LocaleSwitcher: FC = () => {
   const { localeSwitcherLabel } = useIntlayer('locale-switcher');
@@ -28,7 +28,12 @@ export const LocaleSwitcher: FC = () => {
             aria-label={
               localeSwitcherLabel({ language: getLocaleName(localeEl) }).value
             }
-            onClick={() => setLocaleInStorage(localeEl)}
+            onClick={(event) => {
+              // Modified clicks open a new tab: keep this tab's locale
+              if (isModifiedClick(event)) return;
+
+              setLocaleInStorage(localeEl);
+            }}
             params={{ locale: getPrefix(localeEl).localePrefix }}
             to={pathWithoutLocale as To}
           >
